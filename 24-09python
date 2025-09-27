@@ -1,0 +1,86 @@
+#Matrix is an identity matrix
+def is_identity(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+
+    if rows != cols:
+        return False  # must be square matrix
+
+    for i in range(rows):
+        for j in range(cols):
+            if i == j and matrix[i][j] != 1:
+                return False
+            elif i != j and matrix[i][j] != 0:
+                return False
+    return True
+
+# Example
+A = [[1, 0, 0],
+     [0, 1, 0],
+     [0, 0, 1]]
+
+print("Identity Matrix?", is_identity(A))
+
+#Add two matrices
+def add_matrices(A, B):
+    rows = len(A)
+    cols = len(A[0])
+    result = [[0]*cols for _ in range(rows)]
+
+    for i in range(rows):
+        for j in range(cols):
+            result[i][j] = A[i][j] + B[i][j]
+    return result
+
+# Example
+A = [[1, 2, 3],
+     [4, 5, 6]]
+
+B = [[7, 8, 9],
+     [1, 2, 3]]
+
+print("Matrix Addition:", add_matrices(A, B))
+
+#Sum of diagonal elements
+def diagonal_sum(matrix):
+    n = len(matrix)
+    main_diag = sum(matrix[i][i] for i in range(n))
+    sec_diag = sum(matrix[i][n-i-1] for i in range(n))
+    return main_diag, sec_diag
+
+# Example
+A = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+
+main, sec = diagonal_sum(A)
+print("Main diagonal sum:", main)
+print("Secondary diagonal sum:", sec)
+
+#Matrix Multiplication
+def multiply_matrices(A, B):
+    rows_A, cols_A = len(A), len(A[0])
+    rows_B, cols_B = len(B), len(B[0])
+
+    if cols_A != rows_B:
+        raise ValueError("Matrix dimensions do not match for multiplication")
+
+    result = [[0]*cols_B for _ in range(rows_A)]
+
+    for i in range(rows_A):
+        for j in range(cols_B):
+            for k in range(cols_A):
+                result[i][j] += A[i][k] * B[k][j]
+    return result
+
+# Example
+A = [[1, 2],
+     [3, 4]]
+
+B = [[5, 6],
+     [7, 8]]
+
+print("Matrix Multiplication:", multiply_matrices(A, B))
+
+
+
